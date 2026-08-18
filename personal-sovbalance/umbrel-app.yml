@@ -4,7 +4,7 @@ name: sovBalance
 tagline: Track Bitcoin and Monero wallets privately from your own Umbrel
 icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png
 category: bitcoin
-version: "1.1.0"
+version: "1.1.1"
 port: 3710
 description: >-
   Track your Bitcoin and Monero wallets privately from your own Umbrel.
@@ -36,5 +36,5 @@ dependencies:
 gallery:
   - https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/screenshot.png
 releaseNotes: >-
-  Initial community store release. Adds Monero view-only wallets alongside
-  Bitcoin XPUB / YPUB / ZPUB tracking.
+  Rebrands the app as sovBalance and adds Monero key-image import so view-only
+  balances can be updated after spending.
