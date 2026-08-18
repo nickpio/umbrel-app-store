@@ -1,0 +1,40 @@
+manifestVersion: 1.1
+id: personal-sovbalance
+name: sovBalance
+tagline: Track Bitcoin and Monero wallets privately from your own Umbrel
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png
+category: bitcoin
+version: "1.1.0"
+port: 3710
+description: >-
+  Track your Bitcoin and Monero wallets privately from your own Umbrel.
+
+
+  Monitor Bitcoin balances using XPUB, YPUB, or ZPUB, and Monero view-only
+  wallets using a primary address plus private view key.
+
+
+  Connects to your local Electrs and Monero Node apps for maximum privacy,
+  without relying on third-party balance APIs.
+
+
+  Stop checking balances on block explorers. Your wallets. Your node. Your privacy.
+
+
+  Supports multiple wallets, automatic gap limit scanning for Bitcoin, and
+  view-only scanning for Monero directly from your Umbrel node.
+developer: nickpio
+website: https://github.com/nickpio/sovbalance
+repo: https://github.com/nickpio/sovbalance
+support: https://github.com/nickpio/sovbalance/issues
+submitter: nickpio
+submission: https://github.com/nickpio/sovbalance
+path: ""
+dependencies:
+  - electrs
+  - monero
+gallery:
+  - https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/screenshot.png
+releaseNotes: >-
+  Initial community store release. Adds Monero view-only wallets alongside
+  Bitcoin XPUB / YPUB / ZPUB tracking.
