@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: $APP_ZCASH_NODE_IP
+      APP_PORT: 3000
+
+  app:
+    image: ghcr.io/nickpio/umbrel-zcash:v0.1.0
+    user: '1000:1000'
+    restart: on-failure
+    stop_grace_period: 15m30s
+    ports:
+      - '${APP_ZCASH_P2P_PORT}:${APP_ZCASH_P2P_PORT}'
+      - '${APP_ZCASH_RPC_PORT}:${APP_ZCASH_RPC_PORT}'
+      - '${APP_ZCASH_WALLET_PORT}:${APP_ZCASH_WALLET_PORT}'
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+    environment:
+      CHAIN_STATE_DIR: /data/zebra
+      APP_STATE_DIR: /data/app
+      LIGHTWALLETD_DIR: /data/lightwalletd
+      APPS_SUBNET: ${NETWORK_IP}/16
+      P2P_PORT: ${APP_ZCASH_P2P_PORT}
+      RPC_PORT: ${APP_ZCASH_RPC_PORT}
+      WALLET_PORT: ${APP_ZCASH_WALLET_PORT}
+      TOR_HOST: ${APP_ZCASH_TOR_PROXY_IP}
+      TOR_SOCKS_PORT: 9050
+      TOR_CONTROL_PORT: 9051
+      TOR_CONTROL_PASSWORD: moneyprintergobrrr
+      BITCOIND_IP: ${APP_ZCASH_NODE_IP}
+      DEVICE_DOMAIN_NAME: ${DEVICE_DOMAIN_NAME}
+      P2P_HIDDEN_SERVICE: ${APP_ZCASH_P2P_HIDDEN_SERVICE}
+      RPC_HIDDEN_SERVICE: ${APP_ZCASH_RPC_HIDDEN_SERVICE}
+      WALLET_HIDDEN_SERVICE: ${APP_ZCASH_WALLET_HIDDEN_SERVICE}
+    networks:
+      default:
+        ipv4_address: $APP_ZCASH_NODE_IP
+
+  tor:
+    image: ghcr.io/getumbrel/tor:0.4.9.11@sha256:e382b8629c0dfef6ceb396b062622d4e4e955b19d6f16b883fd2c0723ad5671a
+    user: '1000:1000'
+    restart: on-failure
+    volumes:
+      - ${APP_DATA_DIR}/torrc:/etc/tor/torrc:ro
+      - ${TOR_DATA_DIR}:/data
+    environment:
+      HOME: '/tmp'
+    networks:
+      default:
+        ipv4_address: ${APP_ZCASH_TOR_PROXY_IP}

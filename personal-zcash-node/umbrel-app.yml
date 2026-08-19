@@ -1,0 +1,42 @@
+manifestVersion: 1.1
+id: personal-zcash-node
+name: Zcash Node
+tagline: Run your own Zcash full node
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png
+category: finance
+version: "0.1.0"
+port: 8230
+description: >-
+  Run a Zcash full node on umbrelOS, powered by Zebra, with a lightwalletd
+  wallet server so Zashi, Ywallet, and Zingo can connect to your own node.
+
+
+  Independently store and validate the Zcash chain. Connect your wallet
+  directly to this node so you are not trusting a third-party lightwalletd.
+
+
+  The wallet endpoint is gRPC on port 9067. JSON-RPC is on 8232 and P2P is
+  on 8233.
+developer: nickpio
+website: https://github.com/nickpio/umbrel-zcash
+repo: https://github.com/nickpio/umbrel-zcash
+support: https://github.com/nickpio/umbrel-zcash/issues
+submitter: nickpio
+submission: https://github.com/nickpio/umbrel-zcash
+path: ""
+dependencies: []
+gallery: []
+releaseNotes: >-
+  Initial release. Zebra full node plus lightwalletd for wallet connectivity.
+widgets:
+  - id: stats
+    type: four-stats
+    refresh: 5s
+    endpoint: app:3000/api/widget/stats
+  - id: sync
+    type: text-with-progress
+    refresh: 2s
+    endpoint: app:3000/api/widget/sync
+backupIgnore:
+  - data/zebra
+  - data/lightwalletd
