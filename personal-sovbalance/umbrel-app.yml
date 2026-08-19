@@ -4,7 +4,7 @@ name: sovBalance
 tagline: Track Bitcoin and Monero wallets privately from your own Umbrel
 icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png
 category: bitcoin
-version: "1.1.1"
+version: "1.1.2"
 port: 3710
 description: >-
   Track your Bitcoin and Monero wallets privately from your own Umbrel.
@@ -36,5 +36,7 @@ dependencies:
 gallery:
   - https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/screenshot.png
 releaseNotes: >-
-  Rebrands the app as sovBalance and adds Monero key-image import so view-only
-  balances can be updated after spending.
+  Fixes wallet add showing "Request failed", scans that never finish, and
+  prices that stay blank. Wallets render immediately while a scan runs in
+  the background, and prices are fetched by the app with timeouts and
+  fallbacks.
