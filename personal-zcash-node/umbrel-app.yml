@@ -4,7 +4,7 @@ name: Zcash Node
 tagline: Run your own Zcash full node
 icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png
 category: finance
-version: "0.1.1"
+version: "0.1.2"
 port: 8230
 description: >-
   Run a Zcash full node on umbrelOS, powered by Zebra, with a lightwalletd
@@ -27,7 +27,8 @@ path: ""
 dependencies: []
 gallery: []
 releaseNotes: >-
-  Zcash gold theme throughout the dashboard, and a vertically centered app icon.
+  Fix the Umbrel dashboard connection so the app proxy can reach the
+  container after install.
 widgets:
   - id: stats
     type: four-stats

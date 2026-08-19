@@ -3,7 +3,9 @@ version: '3.7'
 services:
   app_proxy:
     environment:
-      APP_HOST: $APP_ZCASH_NODE_IP
+      # Community apps: <app-id>_<service>_1. A static 10.21.x IP is not
+      # reachable from app_proxy the way official store apps are.
+      APP_HOST: personal-zcash-node_app_1
       APP_PORT: 3000
 
   app:
@@ -29,7 +31,8 @@ services:
       TOR_SOCKS_PORT: 9050
       TOR_CONTROL_PORT: 9051
       TOR_CONTROL_PASSWORD: moneyprintergobrrr
-      BITCOIND_IP: ${APP_ZCASH_NODE_IP}
+      # zebrad is in this container; do not RPC via the LAN IP
+      BITCOIND_IP: 127.0.0.1
       DEVICE_DOMAIN_NAME: ${DEVICE_DOMAIN_NAME}
       P2P_HIDDEN_SERVICE: ${APP_ZCASH_P2P_HIDDEN_SERVICE}
       RPC_HIDDEN_SERVICE: ${APP_ZCASH_RPC_HIDDEN_SERVICE}

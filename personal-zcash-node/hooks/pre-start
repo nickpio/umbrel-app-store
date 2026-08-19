@@ -3,9 +3,10 @@
 APP_DATA_DIR="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/../data")"
 DESIRED_OWNER="1000:1000"
 
-if [[ -d "${APP_DATA_DIR}/app" ]]; then
-	chown -R "${DESIRED_OWNER}" "${APP_DATA_DIR}/app"
-fi
+# Docker creates bind-mount sources as root. The app runs as 1000:1000 and
+# will not bind :3000 if /data is not writable.
+mkdir -p "${APP_DATA_DIR}/app" "${APP_DATA_DIR}/zebra" "${APP_DATA_DIR}/lightwalletd"
+chown -R "${DESIRED_OWNER}" "${APP_DATA_DIR}"
 
 HIDDEN_SERVICE_FILE="${TOR_DATA_DIR}/app-${APP_ID}-rpc/hostname"
 
