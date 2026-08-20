@@ -4,7 +4,7 @@ name: sovBalance
 tagline: Track Bitcoin and Monero wallets privately from your own Umbrel
 icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png
 category: bitcoin
-version: "1.2.1"
+version: "1.2.2"
 port: 3710
 description: >-
   Track your Bitcoin and Monero wallets privately from your own Umbrel.
@@ -32,11 +32,9 @@ submission: https://github.com/nickpio/sovbalance
 path: ""
 dependencies:
   - electrs
-  - monero
 gallery:
   - https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/screenshot.png
 releaseNotes: >-
-  Fixes Monero wallet scans failing with "failed to save file ...keys"
-  on Umbrel bind mounts. wallet-rpc now runs as root so it can write
-  wallet files, and opening an existing view-only wallet no longer
-  tries to recreate it.
+  Monero Node is now optional. Bitcoin-only installs no longer require
+  it. Install Monero Node later if you want view-only Monero wallets,
+  then restart sovBalance.
