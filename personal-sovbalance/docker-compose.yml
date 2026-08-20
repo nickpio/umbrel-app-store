@@ -7,7 +7,7 @@ services:
       APP_PORT: 3710
 
   app:
-    image: ghcr.io/nickpio/sovbalance/app:1.2.1@sha256:e0a9704fef0c131ec92e1137bc5316c5c4da979d010904d22c566a5dd0b03479
+    image: ghcr.io/nickpio/sovbalance/app:1.3.0@sha256:5826e4fb83ea8468998ae5a79a4e4662e65779bcd946995cf6250ca031c5082a
     restart: on-failure
     stop_grace_period: 1m
     depends_on:
@@ -18,6 +18,8 @@ services:
       ELECTRUM_PORT: $APP_ELECTRS_NODE_PORT
       WALLET_RPC_HOST: wallet_rpc
       WALLET_RPC_PORT: 18083
+      ZCASH_LWD_HOST: ${APP_ZCASH_NODE_IP:-}
+      ZCASH_LWD_PORT: ${APP_ZCASH_WALLET_PORT:-9067}
     volumes:
       - ${APP_DATA_DIR}/data:/data
 

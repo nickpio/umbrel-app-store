@@ -1,21 +1,23 @@
 manifestVersion: 1.1
 id: personal-sovbalance
 name: sovBalance
-tagline: Track Bitcoin and Monero wallets privately from your own Umbrel
+tagline: Track Bitcoin, Monero, and Zcash wallets privately from your own Umbrel
 icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png
 category: bitcoin
-version: "1.2.2"
+version: "1.3.0"
 port: 3710
 description: >-
-  Track your Bitcoin and Monero wallets privately from your own Umbrel.
+  Track your Bitcoin, Monero, and Zcash wallets privately from your own Umbrel.
 
 
-  Monitor Bitcoin balances using XPUB, YPUB, or ZPUB, and Monero view-only
-  wallets using a primary address plus private view key.
+  Monitor Bitcoin balances using XPUB, YPUB, or ZPUB, Monero view-only
+  wallets using a primary address plus private view key, and Zcash
+  transparent addresses through your local lightwalletd.
 
 
-  Connects to your local Electrs and Monero Node apps for maximum privacy,
-  without relying on third-party balance APIs.
+  Connects to your local Electrs, optional Monero Node, and optional
+  Zcash Node apps for maximum privacy, without relying on third-party
+  balance APIs.
 
 
   Stop checking balances on block explorers. Your wallets. Your node. Your privacy.
@@ -35,6 +37,7 @@ dependencies:
 gallery:
   - https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/screenshot.png
 releaseNotes: >-
-  Monero Node is now optional. Bitcoin-only installs no longer require
-  it. Install Monero Node later if you want view-only Monero wallets,
-  then restart sovBalance.
+  Adds optional Zcash support. Track transparent t1/t3 addresses through
+  your Zcash Node lightwalletd. Zcash Node is not required to install
+  the app. Restart sovBalance after installing Zcash Node. Also updates
+  the app icon for Bitcoin, Monero, and Zcash.
