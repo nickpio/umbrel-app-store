@@ -4,19 +4,20 @@ name: Zcash Node
 tagline: Run your own Zcash full node
 icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.3
 category: finance
-version: "0.1.6"
+version: "0.1.7"
 port: 8230
 description: >-
-  Run a Zcash full node on umbrelOS, powered by Zebra, with a lightwalletd
-  wallet server so Zashi, Ywallet, and Zingo can connect to your own node.
+  Run a Zcash full node on umbrelOS, powered by Zebra or Zakura, with a
+  lightwalletd wallet server so Vizor, Zodl, Ywallet, and Zingo can connect
+  to your own node.
 
 
   Independently store and validate the Zcash chain. Connect your wallet
   directly to this node so you are not trusting a third-party lightwalletd.
 
 
-  The wallet endpoint is gRPC on port 9067. JSON-RPC is on 8232 and P2P is
-  on 8233.
+  The wallet endpoint is gRPC over TLS on port 9067. JSON-RPC is on 8232
+  and P2P is on 8233.
 developer: nickpio
 website: https://github.com/nickpio/umbrel-zcash
 repo: https://github.com/nickpio/umbrel-zcash
@@ -27,8 +28,8 @@ path: ""
 dependencies: []
 gallery: []
 releaseNotes: >-
-  Keep the dashboard in synced mode when a new block arrives instead of
-  flipping back to synchronizing.
+  Add a Zebra or Zakura node selector, serve lightwalletd over TLS for
+  Vizor, and rename Zashi wallet references to Zodl.
 widgets:
   - id: stats
     type: four-stats
@@ -40,4 +41,5 @@ widgets:
     endpoint: app:3000/api/widget/sync
 backupIgnore:
   - data/zebra
+  - data/zakura
   - data/lightwalletd

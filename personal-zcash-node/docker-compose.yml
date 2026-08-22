@@ -9,7 +9,7 @@ services:
       APP_PORT: 3000
 
   app:
-    image: ghcr.io/nickpio/umbrel-zcash:v0.1.5@sha256:f14c563692b790847eb862d63ef72af491ecc730c8221cfd332b6a9895db23ba
+    image: ghcr.io/nickpio/umbrel-zcash:v0.1.6@sha256:52ae60f1b155b344c438122e6a95a784dce07193ba0ad937fdd5ed2604c76c39
     user: '1000:1000'
     restart: on-failure
     stop_grace_period: 15m30s
@@ -21,6 +21,7 @@ services:
       - ${APP_DATA_DIR}/data:/data
     environment:
       CHAIN_STATE_DIR: /data/zebra
+      ZAKURA_DIR: /data/zakura
       APP_STATE_DIR: /data/app
       LIGHTWALLETD_DIR: /data/lightwalletd
       APPS_SUBNET: ${NETWORK_IP}/16
