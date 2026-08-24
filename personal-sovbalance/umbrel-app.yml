@@ -2,9 +2,9 @@ manifestVersion: 1.1
 id: personal-sovbalance
 name: sovBalance
 tagline: Track Bitcoin, Monero, and Zcash wallets privately from your own Umbrel
-icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png?v=1.4.3
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png?v=1.4.4
 category: bitcoin
-version: "1.4.3"
+version: "1.4.4"
 port: 3710
 description: >-
   Track your Bitcoin, Monero, and Zcash wallets privately from your own Umbrel.
@@ -38,5 +38,5 @@ dependencies:
 gallery:
   - https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/screenshot.png
 releaseNotes: >-
-  Shows a live sync percentage on shielded Zcash wallets while they
-  catch up, instead of treating an unfinished first scan as an error.
+  Fixes Zcash CAD pricing. A missing ZEC/CAD quote no longer shows
+  Bitcoin's price.
