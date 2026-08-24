@@ -2,9 +2,9 @@ manifestVersion: 1.1
 id: personal-zcash-node
 name: Zcash Node
 tagline: Run your own Zcash full node
-icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.9
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.10
 category: finance
-version: "0.1.9"
+version: "0.1.10"
 port: 8230
 description: >-
   Run a Zcash full node on umbrelOS, powered by Zebra or Zakura, with a
@@ -30,8 +30,9 @@ path: ""
 dependencies: []
 gallery: []
 releaseNotes: >-
-  Upgrade lightwalletd to v0.5.0 for Ironwood (NU6.3) / v6 transaction support
-  so Vizor and other wallets can sync past mainnet activation height 3428143.
+  Fix Insights fees, subsidy, and block size for Zebra. Median fee is in zat,
+  rewards use the Zcash subsidy schedule, and peer Connected/Relay no longer
+  invent Bitcoin-only fields Zebra does not send.
 widgets:
   - id: stats
     type: four-stats
