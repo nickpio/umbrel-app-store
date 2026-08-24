@@ -2,9 +2,9 @@ manifestVersion: 1.1
 id: personal-sovbalance
 name: sovBalance
 tagline: Track Bitcoin, Monero, and Zcash wallets privately from your own Umbrel
-icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png?v=1.4.0
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png?v=1.4.1
 category: bitcoin
-version: "1.4.0"
+version: "1.4.1"
 port: 3710
 description: >-
   Track your Bitcoin, Monero, and Zcash wallets privately from your own Umbrel.
@@ -38,8 +38,7 @@ dependencies:
 gallery:
   - https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/screenshot.png
 releaseNotes: >-
-  Adds shielded Zcash support. Track unified viewing keys (uview1…) as
-  well as transparent t1/t3 addresses through your Zcash Node
-  lightwalletd. First shielded sync can take a while and resumes on the
-  next rescan. Zcash Node is not required to install the app. Restart
-  sovBalance after installing Zcash Node.
+  Fixes adding a shielded Zcash viewing key when the Zcash Node
+  lightwalletd is serving TLS. The scanner now detects that and
+  retries, instead of failing with a broken-pipe error on the chain
+  tip.
