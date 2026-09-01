@@ -2,9 +2,9 @@ manifestVersion: 1.1
 id: personal-zcash-node
 name: Zcash Node
 tagline: Run your own Zcash full node
-icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.10
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.11
 category: finance
-version: "0.1.10"
+version: "0.1.11"
 port: 8230
 description: >-
   Run a Zcash full node on umbrelOS, powered by Zebra or Zakura, with a
@@ -30,9 +30,10 @@ path: ""
 dependencies: []
 gallery: []
 releaseNotes: >-
-  Fix Insights fees, subsidy, and block size for Zebra. Median fee is in zat,
-  rewards use the Zcash subsidy schedule, and peer Connected/Relay no longer
-  invent Bitcoin-only fields Zebra does not send.
+  Fix the Insights charts window for Zcash block times. The block rewards, block
+  size, and fee-rate charts now size their time axis from the actual span of the
+  fetched blocks, so about four hours of Zcash blocks fill the plot instead of
+  sitting in a hard-coded 24-hour Bitcoin window.
 widgets:
   - id: stats
     type: four-stats
