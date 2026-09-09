@@ -2,9 +2,9 @@ manifestVersion: 1.1
 id: personal-zcash-node
 name: Zcash Node
 tagline: Run your own Zcash full node
-icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.12
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.13
 category: finance
-version: "0.1.12"
+version: "0.1.13"
 port: 8230
 description: >-
   Run a Zcash full node on umbrelOS, powered by Zebra or Zakura, with a
@@ -30,10 +30,10 @@ path: ""
 dependencies: []
 gallery: []
 releaseNotes: >-
-  Clear spawn-failure wedges so settings and stop no longer hang when a node
-  binary is missing; name the crashed process (Zebra/Zakura/lightwalletd) in
-  exit toasts and the Advanced UI; and fix Block Rewards fees reading 0 after
-  NU6 by subtracting the Deferred lockbox subsidy.
+  Flush queued transaction pings when the txPing throttle window closes so
+  mempool bursts show the full backlog in the UI, not just the first
+  transaction; and fix inverted introducedIn/removedIn version gating so
+  settings options appear and disappear at the correct app versions.
 widgets:
   - id: stats
     type: four-stats
