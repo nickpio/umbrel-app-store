@@ -2,9 +2,9 @@ manifestVersion: 1.1
 id: personal-zcash-node
 name: Zcash Node
 tagline: Run your own Zcash full node
-icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.11
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.12
 category: finance
-version: "0.1.11"
+version: "0.1.12"
 port: 8230
 description: >-
   Run a Zcash full node on umbrelOS, powered by Zebra or Zakura, with a
@@ -30,10 +30,10 @@ path: ""
 dependencies: []
 gallery: []
 releaseNotes: >-
-  Fix the Insights charts window for Zcash block times. The block rewards, block
-  size, and fee-rate charts now size their time axis from the actual span of the
-  fetched blocks, so about four hours of Zcash blocks fill the plot instead of
-  sitting in a hard-coded 24-hour Bitcoin window.
+  Clear spawn-failure wedges so settings and stop no longer hang when a node
+  binary is missing; name the crashed process (Zebra/Zakura/lightwalletd) in
+  exit toasts and the Advanced UI; and fix Block Rewards fees reading 0 after
+  NU6 by subtracting the Deferred lockbox subsidy.
 widgets:
   - id: stats
     type: four-stats
