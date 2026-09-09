@@ -2,9 +2,9 @@ manifestVersion: 1.1
 id: personal-zcash-node
 name: Zcash Node
 tagline: Run your own Zcash full node
-icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.14
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.15
 category: finance
-version: "0.1.14"
+version: "0.1.15"
 port: 8230
 description: >-
   Run a Zcash full node on umbrelOS, powered by Zebra or Zakura, with a
@@ -30,10 +30,9 @@ path: ""
 dependencies: []
 gallery: []
 releaseNotes: >-
-  The UI build now typechecks before shipping, fixing latent TypeScript errors.
-  Custom zebrad.toml overrides are merged with a real TOML parser and invalid
-  input is rejected instead of crashing the node. The blocks API now validates
-  and clamps its limit parameter so clients cannot request unbounded history.
+  Add a Latest choice for Zakura and pin presets one release behind for rollback.
+  Bump lightwalletd to v0.5.4 so it accepts the Zakura backend. Select defaults
+  now show labels like "Latest (Zebra 6.3.0)" instead of raw values.
 widgets:
   - id: stats
     type: four-stats
