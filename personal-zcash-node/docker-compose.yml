@@ -9,7 +9,7 @@ services:
       APP_PORT: 3000
 
   app:
-    image: ghcr.io/nickpio/umbrel-zcash:v0.1.13@sha256:a95f37c1f30f2a989b164e1f8fad4b7378d1cf5c5516faa67d7f293a14a14059
+    image: ghcr.io/nickpio/umbrel-zcash:v0.1.14@sha256:ad181917eea7872cc566a42024121ea56d43f666baffab41d47bdb0558fedda7
     user: '1000:1000'
     restart: on-failure
     stop_grace_period: 15m30s
