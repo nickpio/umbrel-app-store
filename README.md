@@ -20,7 +20,7 @@ Community App Store apps are not reviewed by Umbrel.
 
 | App | Folder | Requires |
 | --- | --- | --- |
-| sovBalance | `personal-sovbalance` | Electrs, Monero Node |
+| sovBalance | `personal-sovbalance` | — (detects Electrs, Monero Node, and Zcash Node when installed) |
 | Zcash Node | `personal-zcash-node` | — |
 
 ## Adding another app
