@@ -2,9 +2,9 @@ manifestVersion: 1.1
 id: personal-sovbalance
 name: sovBalance
 tagline: Track Bitcoin, Monero, and Zcash wallets privately from your own Umbrel
-icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png?v=1.5.1
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png?v=1.6.0
 category: bitcoin
-version: "1.5.1"
+version: "1.6.0"
 port: 3710
 description: >-
   Track your Bitcoin, Monero, and Zcash wallets privately from your own Umbrel.
@@ -38,6 +38,7 @@ dependencies: []
 gallery:
   - https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/screenshot.png
 releaseNotes: >-
-  Bitcoin wallets are detected with Fulcrum and ElectrumX as well as
-  Electrs. 1.5.0 only looked for Electrs, so Bitcoin wallets were hidden
-  when another Electrum server was installed.
+  Monero spends are now detected automatically. sovBalance reads the
+  input rings of the wallet's incoming transactions from your Monero
+  Node and removes spent outputs without key images. Monero wallets
+  also refresh in the background, so balances update on their own.
