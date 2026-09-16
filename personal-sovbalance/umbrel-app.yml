@@ -2,9 +2,9 @@ manifestVersion: 1.1
 id: personal-sovbalance
 name: sovBalance
 tagline: Track Bitcoin, Monero, and Zcash wallets privately from your own Umbrel
-icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png?v=1.6.0
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/icon.png?v=1.6.1
 category: bitcoin
-version: "1.6.0"
+version: "1.6.1"
 port: 3710
 description: >-
   Track your Bitcoin, Monero, and Zcash wallets privately from your own Umbrel.
@@ -38,7 +38,7 @@ dependencies: []
 gallery:
   - https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-sovbalance/screenshot.png
 releaseNotes: >-
-  Monero spends are now detected automatically. sovBalance reads the
-  input rings of the wallet's incoming transactions from your Monero
-  Node and removes spent outputs without key images. Monero wallets
-  also refresh in the background, so balances update on their own.
+  Monero spend detection works again with the Monero Node app. 1.6.0
+  reported "Monero Node RPC login was rejected" because it answered the
+  daemon's login challenge on a new connection, which monerod does not
+  accept. The app now keeps the login handshake on one connection.
