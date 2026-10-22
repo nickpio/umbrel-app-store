@@ -1,0 +1,71 @@
+name: Sync latest Zcash Node release
+
+on:
+  schedule:
+    - cron: '37 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/**
+      - .github/workflows/sync-zcash-release.yml
+  pull_request:
+    paths:
+      - scripts/**
+      - .github/workflows/sync-zcash-release.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-zcash-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test release sync
+        run: node --test scripts/*.test.mjs
+
+  sync:
+    needs: test
+    if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Resolve release and update listing
+        id: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/sync-zcash-release.mjs
+      - name: Publish listing update
+        if: steps.release.outputs.changed == 'true'
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add personal-zcash-node/umbrel-app.yml personal-zcash-node/docker-compose.yml
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Update Zcash Node to $VERSION"
+          git push origin "HEAD:$DEFAULT_BRANCH"
+          git fetch origin "$DEFAULT_BRANCH"
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse FETCH_HEAD)" ]; then
+            echo '::error::App-store branch changed during publication; verify the listing.'
+            exit 1
+          fi
