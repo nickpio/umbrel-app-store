@@ -241,3 +241,24 @@ test('a second sync after distributing the release is a no-op', async (t) => {
   assert.deepEqual(await sync(f), {changed: false, version: '0.1.18'})
   assert.deepEqual(f.requests, [releasesUrl])
 })
+
+
+test('syncs sovBalance using its unprefixed image tag and verifies a single-platform image', async (t) => {
+  const f = await fixture(t)
+  await cp(new URL('../personal-sovbalance', import.meta.url), path.join(f.root, 'personal-sovbalance'), {recursive: true})
+  const config = JSON.stringify({os: 'linux', architecture: 'amd64'})
+  const configDigest = `sha256:${createHash('sha256').update(config).digest('hex')}`
+  const body = JSON.stringify({config: {digest: configDigest}})
+  const imageDigest = `sha256:${createHash('sha256').update(body).digest('hex')}`
+  const fetchImpl = async (url) => {
+    if (url.includes('api.github.com')) return Response.json([{...release, tag_name: 'v1.7.1'}])
+    if (url.includes('/token?')) return Response.json({token: 'token'})
+    if (url.endsWith('/manifests/1.7.1')) return new Response(body, {headers: {'docker-content-digest': imageDigest}})
+    if (url.endsWith(`/blobs/${configDigest}`)) return new Response(config)
+    throw new Error(`Unexpected URL: ${url}`)
+  }
+  const {syncRelease} = await import('./sync-zcash-release.mjs')
+  const result = await syncRelease({root: f.root, fetchImpl, repo: 'nickpio/sovbalance', imageRepo: 'nickpio/sovbalance/app', appId: 'personal-sovbalance', imageTag: (r) => r.tag_name.replace(/^v/, '')})
+  assert.equal(result.image, `ghcr.io/nickpio/sovbalance/app:1.7.1@${imageDigest}`)
+  assert.match(await readFile(path.join(f.root, 'personal-sovbalance/docker-compose.yml'), 'utf8'), /app:1\.7\.1@sha256:/)
+})

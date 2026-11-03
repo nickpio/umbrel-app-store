@@ -18,7 +18,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: sync-zcash-release-${{ github.ref }}
+  group: sync-app-releases-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:

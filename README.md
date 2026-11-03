@@ -23,15 +23,16 @@ Community App Store apps are not reviewed by Umbrel.
 | sovBalance | `personal-sovbalance` | — (detects Electrs/Fulcrum/ElectrumX, Monero Node, and Zcash Node when installed) |
 | Zcash Node | `personal-zcash-node` | — |
 
-## Automatic Zcash Node updates
+## Automatic app updates
 
-The **Sync latest Zcash Node release** GitHub Actions workflow checks
-`nickpio/umbrel-zcash` hourly and can also be run manually from the Actions tab.
+The **Sync latest Zcash Node release** and **Sync latest sovBalance release**
+GitHub Actions workflows check their upstream repositories hourly and can also be
+run manually from the Actions tab.
 It selects the highest stable `X.Y.Z` / `vX.Y.Z` GitHub Release, excluding drafts
 and prereleases. When that version is newer than this store's listing, it:
 
 1. Resolves the public GHCR image for the exact release tag, verifies the image
-   index digest and Linux amd64 support, and keeps the image digest-pinned.
+   digest and Linux amd64 support, and keeps the image digest-pinned.
 2. Updates the app version, icon cache key, release notes, and image reference.
 3. Commits those changes directly to `main` using this repository's
    `GITHUB_TOKEN`; no token or write access from the app repository is needed.
@@ -39,7 +40,7 @@ and prereleases. When that version is newer than this store's listing, it:
 Equal or older versions are ignored, including releases behind a manually
 published store version. Missing images, invalid digests, and API failures leave
 the listing unchanged and fail the run; the next scheduled check retries.
-Only Zcash Node is synced; other apps and its Tor image are left unchanged.
+Each workflow updates only its own app listing; the Zcash Node Tor image is left unchanged.
 
 This updates what the store offers, not the installed application. Umbrel must
 refresh the store before users see an available update. GitHub may delay scheduled
@@ -52,6 +53,7 @@ Run locally with Node.js 22 or later:
 ```sh
 node --test scripts/*.test.mjs
 node scripts/sync-zcash-release.mjs --dry-run
+node scripts/sync-sovbalance-release.mjs --dry-run
 ```
 
 ## Adding another app

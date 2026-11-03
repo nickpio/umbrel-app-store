@@ -22,6 +22,10 @@ export async function syncRelease({
   root = ROOT,
   fetchImpl = fetch,
   dryRun = false,
+  repo = REPO,
+  imageRepo = repo,
+  appId = 'personal-zcash-node',
+  imageTag = (release) => release.tag_name,
 } = {}) {
   async function get(url, headers = {}) {
     const response = await fetchImpl(url, {
@@ -39,7 +43,7 @@ export async function syncRelease({
   for (let page = 1; ; page++) {
     const releases = await (
       await get(
-        `https://api.github.com/repos/${REPO}/releases?per_page=100&page=${page}`,
+        `https://api.github.com/repos/${repo}/releases?per_page=100&page=${page}`,
         githubHeaders,
       )
     ).json()
@@ -60,8 +64,8 @@ export async function syncRelease({
   }
   if (!release) throw new Error('No stable app release found')
   const version = release.tag_name.replace(/^v/, '')
-  const appPath = path.join(root, 'personal-zcash-node/umbrel-app.yml')
-  const composePath = path.join(root, 'personal-zcash-node/docker-compose.yml')
+  const appPath = path.join(root, appId, 'umbrel-app.yml')
+  const composePath = path.join(root, appId, 'docker-compose.yml')
   const [app, compose] = await Promise.all([
     readFile(appPath, 'utf8'),
     readFile(composePath, 'utf8'),
@@ -73,13 +77,13 @@ export async function syncRelease({
 
   const {token} = await (
     await get(
-      `https://ghcr.io/token?service=ghcr.io&scope=repository:${REPO}:pull`,
+      `https://ghcr.io/token?service=ghcr.io&scope=repository:${imageRepo}:pull`,
     )
   ).json()
   if (typeof token !== 'string' || !token)
     throw new Error('Registry did not return a pull token')
   const response = await get(
-    `https://ghcr.io/v2/${REPO}/manifests/${release.tag_name}`,
+    `https://ghcr.io/v2/${imageRepo}/manifests/${imageTag(release)}`,
     {
       Authorization: `Bearer ${token}`,
       Accept:
@@ -91,16 +95,22 @@ export async function syncRelease({
   if (response.headers.get('docker-content-digest') !== digest)
     throw new Error('Registry manifest digest mismatch')
   const manifest = JSON.parse(bytes.toString('utf8'))
-  if (
-    !manifest.manifests?.some(
-      (entry) =>
-        entry.platform?.os === 'linux' &&
-        entry.platform?.architecture === 'amd64',
+  let supportsAmd64 = manifest.manifests?.some(
+    (entry) => entry.platform?.os === 'linux' && entry.platform?.architecture === 'amd64',
+  )
+  if (!manifest.manifests && /^sha256:[a-f0-9]{64}$/.test(manifest.config?.digest ?? '')) {
+    const configResponse = await get(
+      `https://ghcr.io/v2/${imageRepo}/blobs/${manifest.config.digest}`,
+      {Authorization: `Bearer ${token}`},
     )
-  ) {
-    throw new Error('Image index does not support linux/amd64')
+    const configBytes = Buffer.from(await configResponse.arrayBuffer())
+    if (`sha256:${createHash('sha256').update(configBytes).digest('hex')}` !== manifest.config.digest)
+      throw new Error('Registry image config digest mismatch')
+    const config = JSON.parse(configBytes.toString('utf8'))
+    supportsAmd64 = config.os === 'linux' && config.architecture === 'amd64'
   }
-  const image = `ghcr.io/${REPO}:${release.tag_name}@${digest}`
+  if (!supportsAmd64) throw new Error('Image does not support linux/amd64')
+  const image = `ghcr.io/${imageRepo}:${imageTag(release)}@${digest}`
   const notes = [
     release.name || release.tag_name,
     '',
@@ -141,7 +151,7 @@ export async function syncRelease({
   )
   const updatedCompose = replace(
     compose,
-    /^    image: ghcr\.io\/nickpio\/umbrel-zcash:\S+$/m,
+    new RegExp(`^    image: ghcr\\.io/${imageRepo.replaceAll('/', '\\/')}:\\S+$`, 'm'),
     `    image: ${image}`,
     'app image',
   )
