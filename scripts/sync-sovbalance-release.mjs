@@ -6,6 +6,8 @@ const result = await syncRelease({
   repo: 'nickpio/sovbalance',
   imageRepo: 'nickpio/sovbalance/app',
   appId: 'personal-sovbalance',
+  // Daily builds publish version tags and images without GitHub Releases.
+  releaseSource: 'tags',
   imageTag: (release) => release.tag_name.replace(/^v/, ''),
   dryRun: process.argv.includes('--dry-run'),
 })

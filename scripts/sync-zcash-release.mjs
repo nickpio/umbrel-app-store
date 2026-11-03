@@ -26,7 +26,10 @@ export async function syncRelease({
   imageRepo = repo,
   appId = 'personal-zcash-node',
   imageTag = (release) => release.tag_name,
+  releaseSource = 'releases',
 } = {}) {
+  if (!['releases', 'tags'].includes(releaseSource))
+    throw new Error('Unsupported release source')
   async function get(url, headers = {}) {
     const response = await fetchImpl(url, {
       headers: {'User-Agent': 'umbrel-app-store-release-sync', ...headers},
@@ -43,13 +46,21 @@ export async function syncRelease({
   for (let page = 1; ; page++) {
     const releases = await (
       await get(
-        `https://api.github.com/repos/${repo}/releases?per_page=100&page=${page}`,
+        `https://api.github.com/repos/${repo}/${releaseSource}?per_page=100&page=${page}`,
         githubHeaders,
       )
     ).json()
     if (!Array.isArray(releases))
       throw new Error('Invalid GitHub releases response')
-    for (const candidate of releases) {
+    for (const entry of releases) {
+      const candidate = releaseSource === 'tags'
+        ? {
+            tag_name: entry.name,
+            draft: false,
+            prerelease: false,
+            html_url: `https://github.com/${repo}/tree/${encodeURIComponent(entry.name)}`,
+          }
+        : entry
       if (
         candidate.draft !== false ||
         candidate.prerelease !== false ||
@@ -114,8 +125,7 @@ export async function syncRelease({
   const notes = [
     release.name || release.tag_name,
     '',
-    release.body || '',
-    '',
+    ...(release.body ? [release.body, ''] : []),
     release.html_url,
   ]
     .join('\n')
@@ -145,7 +155,7 @@ export async function syncRelease({
     /^releaseNotes: (?:>-|\|-)\n(?:(?:[ \t].*|)\n)*/m,
     `releaseNotes: |-\n${notes
       .split('\n')
-      .map((line) => `  ${line}\n`)
+      .map((line) => line ? `  ${line}\n` : '\n')
       .join('')}`,
     'release notes',
   )
