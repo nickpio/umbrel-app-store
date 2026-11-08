@@ -2,9 +2,9 @@ manifestVersion: 1.1
 id: personal-zcash-node
 name: Zcash Node
 tagline: Run your own Zcash full node
-icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.20
+icon: https://raw.githubusercontent.com/nickpio/umbrel-app-store/main/personal-zcash-node/icon.png?v=0.1.21
 category: finance
-version: "0.1.20"
+version: "0.1.21"
 port: 8230
 description: >-
   Run a Zcash full node on umbrelOS, powered by Zebra or Zakura, with a
@@ -30,23 +30,23 @@ path: ""
 dependencies: []
 gallery: []
 releaseNotes: |-
-  v0.1.20: Bump Zakura to 1.8.3
+  v0.1.21: Bump Zakura to 1.8.5
 
-  Bump Zakura to 1.8.3
+  Bump Zakura to 1.8.5
 
-  Node update: https://github.com/nickpio/umbrel-zcash/pull/32
+  Node update: https://github.com/nickpio/umbrel-zcash/pull/33
 
-  Container image: `ghcr.io/nickpio/umbrel-zcash:v0.1.20@sha256:a31b98e6192c35e8347f5962931fb76ed4ef14cb23d975331c96ccbcd254cee7`
+  Container image: `ghcr.io/nickpio/umbrel-zcash:v0.1.21@sha256:9ee2d36346f2746901dcc08d7f69c7d57fd74ce3acdca4bd750c5c89fadc3a0e`
 
   The previous release of each node remains available as the pinned rollback preset under Settings.
 
   ## What's Changed
-  * Bump Zakura to 1.8.3 by @github-actions[bot] in https://github.com/nickpio/umbrel-zcash/pull/32
+  * Bump Zakura to 1.8.5 by @github-actions[bot] in https://github.com/nickpio/umbrel-zcash/pull/33
 
 
-  **Full Changelog**: https://github.com/nickpio/umbrel-zcash/compare/v0.1.19...v0.1.20
+  **Full Changelog**: https://github.com/nickpio/umbrel-zcash/compare/v0.1.20...v0.1.21
 
-  https://github.com/nickpio/umbrel-zcash/releases/tag/v0.1.20
+  https://github.com/nickpio/umbrel-zcash/releases/tag/v0.1.21
 widgets:
   - id: stats
     type: four-stats
